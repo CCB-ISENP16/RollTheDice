@@ -130,3 +130,139 @@ exit
 git pull
 git pull
 ls
+ls
+mv ArchitectureProduit.png docs/
+ls
+mv CahierdeschargesDé.docx docs/
+ls
+ls
+cd src/main/
+ls
+ls
+cd
+ls
+clear
+ls
+ls
+ls
+git add -A
+git commit -m "move files & add dice.c, generate random number + stock data int .txt"
+git push
+git push
+ls
+cd docs/
+ls
+exit
+ls
+cd docs/
+ls
+ifc
+ifconfig 
+sudo reboot 
+ls
+htop
+sudo systemctl status connectd
+sudo systemctl start connectd
+sudo systemctl status connectd
+sudo systemctl status connectd.service 
+sudo systemctl status connectd_schannel.service 
+sudo systemctl start connectd_schannel.service 
+sudo systemctl status connectd_schannel.service 
+sudo connectd_installer 
+sudo connectd_startup_control 
+sudo connectd
+sudo reboot 
+sudo systemctl status connectd
+sudo connectd_installer 
+exit
+exit
+ls
+exit
+git status 
+git pull
+git status 
+ls
+ls -la
+cat .config/
+cd .config/
+ls
+cd
+cd src/
+sudo systemctl status connectd
+ls
+printenv
+ls -la
+git status 
+cat .bash_history 
+ls -la
+ccat .gnupg/
+cat .gnupg/
+cd .gnupg/
+ls
+cd
+ls
+clear
+exit
+ls
+exit
+ifconfig 
+ssh pi±192.168.1.29
+exit
+ssh pi@192.168.1.29
+man su
+ls
+ssh pi@192.168.1.29
+ls -la
+ssh pi@192.168.1.29
+ls
+cd ../pi/
+ls
+ls -la
+cp .bashrc /home/isen
+cd
+ls
+cat .bashrc 
+ll
+ls
+ls -la
+exit
+ls
+ls -la
+cd ../pi/
+ls
+ls -la
+cat .local/
+cd .local/
+ls
+cd ..
+cd /home/isen
+ls
+printenv
+ls
+ls -la
+cd ../pi/
+ls
+ls- la
+ls -la
+cd .cache/
+ls
+cd..
+ls
+cd ..
+ls
+cd .pro
+ls .profile 
+cat .profile 
+cd ..
+cd ise
+cd isen/
+ls
+ls -la
+cd ..
+cd pi
+cp .profile /home/isen
+ls
+cd 
+ls
+ls -la
+exit
