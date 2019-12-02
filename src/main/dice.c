@@ -1,34 +1,13 @@
-#include <stdio.h>
-#include "stdlib.h"
-#include "time.h"
-#include "fcntl.h"
-#include "string.h"
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <signal.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "../../inc/dice.h"
 
-typedef struct Joueur
-{
-
-    char name[50];
-    char score[3];
-
-} joueur;
-
-void enregistrer(joueur *t)
+void enregistrer(JOUEUR *t)
 {
     int desc, r;
     printf("Enregistrement dans un fichier\n");
     desc = open("stat.txt", O_WRONLY | O_CREAT, 0666);
-	
-	lseek(desc,0,SEEK_END);
-	
+
+    lseek(desc, 0, SEEK_END);
+
     if (desc == -1)
     {
         perror("Error when opening");
@@ -73,8 +52,7 @@ void enregistrer(joueur *t)
 int main(void)
 {
     int nb_alea[2];
-    FILE *fichier;
-    joueur J1;
+    JOUEUR J1;
 
     bzero(J1.name, sizeof(J1.name));
 
@@ -91,4 +69,6 @@ int main(void)
         printf("%s a fait : %s \n", J1.name, &J1.score[i]);
     }
     enregistrer(&J1);
+
+    return 0;
 }
