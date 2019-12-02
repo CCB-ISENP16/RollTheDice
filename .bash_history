@@ -281,3 +281,45 @@ nano .bashrc
 ll
 cat .bashrc 
 exit
+ls
+ll
+git add -A
+git commit -m "add ll alias"
+git push
+git status 
+cd src/
+ls
+cd main/
+ls
+cat dice.c 
+cd
+ls
+cat 
+cat README.md 
+clear
+cd ..
+ls
+cd
+ls
+cd
+cd src/main/
+ls
+exit
+ls
+cd src/main/
+ls
+cat dice.c 
+ls
+l
+sl
+ls
+ll
+cd..
+top
+ps
+ps -elf
+ps -elf | grep dn
+ps -elf | grep dns
+ps -elf | grep isen
+ps -elf | grep root
+exit
