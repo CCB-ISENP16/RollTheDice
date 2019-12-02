@@ -266,3 +266,18 @@ cd
 ls
 ls -la
 exit
+ls
+git status 
+git add -A
+git commit -m "Add files for colored terminal"
+git push
+ls
+clear
+ls
+ll
+cat .bash
+cat .bashrc 
+nano .bashrc 
+ll
+cat .bashrc 
+exit
