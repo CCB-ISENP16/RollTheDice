@@ -94,10 +94,10 @@ int main()
 
                 for (int i = 0; i < nb_player; i++)
                 {
-                    if (recv(client_sock[i], *buff[i], MAXDATASIZE, 0) > 0)
+                    if (recv(client_sock[i], &buff[i], MAXDATASIZE, 0) > 0)
                     {
-                        printf("bonne réception des donnés");
-                        printf("%s",*buff[i]);
+                        printf("bonne réception des donnés\n");
+                        printf("%s",&buff[i][0]);
                     }
                 }
                 for (int i = 0; i < nb_player; i++)
@@ -107,7 +107,7 @@ int main()
                     {
                         if (i != j)
                         {
-                            if (send(client_sock[i], *buff[j],MAXDATASIZE, 0) > 0)
+                            if (send(client_sock[i], &buff[j],MAXDATASIZE, 0) > 0)
                             {
                                 printf("tout roule\n");
                             }
