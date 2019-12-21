@@ -26,9 +26,15 @@ int main()
     struct sockaddr_in server;
     struct sockaddr_in client;
     char client_message[2000];
-    char buff[5][500];
+    char buff[500];
+    char *tab[5];
     FM OTHER[5];
     int opt = TRUE;
+
+    for(int i =0;i<5;i++)
+    {
+        tab[i]=(char*) malloc(MAXDATASIZE);
+    }
 
     //Create socket
     socket_desc = socket(AF_INET, SOCK_STREAM, 0);
@@ -94,22 +100,24 @@ int main()
 
                 for (int i = 0; i < nb_player; i++)
                 {
-                    if (recv(client_sock[i], &buff[i], MAXDATASIZE, 0) > 0)
+                    if (recv(client_sock[i], tab[i], MAXDATASIZE, 0) > 0)
                     {
                         printf("bonne réception des donnés\n");
-                        printf("%s",&buff[i][0]);
+                        printf("%s\n",tab[i]);
                     }
                 }
                 for (int i = 0; i < nb_player; i++)
                 {
                     printf("envoie des données aux autres joueurs\n");
-                    for (int j = nb_player; j > 0; j--)
+                    for (int j = nb_player-1; j >= 0; j--)
                     {
                         if (i != j)
                         {
-                            if (send(client_sock[i], &buff[j],MAXDATASIZE, 0) > 0)
+                            printf("envoie des donnees : %s\n",tab[j]);
+                            fflush(stdout);
+                            if (send(client_sock[i], tab[j],MAXDATASIZE, 0) > 0)
                             {
-                                printf("tout roule\n");
+                                printf("tout roule envoie des données\n");
                             }
                         }
                     }
@@ -117,7 +125,7 @@ int main()
 
                 for (int i = 0; i < nb_player; i++)
                 {
-                    clear_fiche(&OTHER[0]);
+                    clear_fiche(&OTHER[i]);
                 }
             }
         }

@@ -12,7 +12,7 @@
 
 
 typedef struct FeuilleMatch {
-	char nom[50];
+	char * nom;
 	char *score;
 	int un;
 	int deux;

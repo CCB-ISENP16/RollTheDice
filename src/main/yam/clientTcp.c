@@ -73,6 +73,7 @@ int main(int argc, char *argv[])
 
     printf("Nom du joueur : ");
     scanf("%s", J1.nom);
+    printf("bienvenu %s", J1.nom);
     clear_fiche(&J1);
 
     for (int i = 0; i < 11; i++)
@@ -98,9 +99,14 @@ int main(int argc, char *argv[])
 void affichageAutreJoueur(int sockfd)
 {
     FM *OTHER;
-    printf("l'autre joueur a choisis :");
+    printf("les autres joueurs ont choisis :\n");
+    fflush(stdout);
+    for(int i=0;i<2;i++)
+    {
     serialrecfromserv(OTHER, sockfd);
     affichage_fiche(OTHER);
+    clear_fiche(OTHER);
+    }
 }
 
 
@@ -130,12 +136,12 @@ int serialsendtoserv(FM *OTHER, int sockfd)
     size+=snprintf(buff+size,sizeof(OTHER->chance)+1,"%d;",OTHER->chance);
     size+=snprintf(buff+size,sizeof(OTHER->full)+1,"%d;",OTHER->full);
 
-    printf("%s\n %ld",buff,sizeof(buff));
+    printf("%s\n",buff);
     fflush(stdout);
     
     if(send(sockfd,buff,MAXDATASIZE,0) > 0)
     {
-        printf("tout roule\n");
+        printf("tout roule pour l'envoie\n");
         fflush(stdout);
     }
 
@@ -144,14 +150,16 @@ int serialsendtoserv(FM *OTHER, int sockfd)
 
 int serialrecfromserv(FM *OTHER, int sockfd)
 {
-    char * buff;
+   char * buff= (char *)malloc(MAXDATASIZE);
+
     if(recv(sockfd,buff,MAXDATASIZE,0)>0)
     {
         printf("%s",buff);
-        printf("j'ai recu\n");
         fflush(stdout);
     }
-    OTHER->nom[0]= strtok(buff,";");
+    OTHER->nom= strtok(buff,";");
+    printf("%s",OTHER->nom);
+    fflush(stdout);
     OTHER->score = strtok(NULL,";");
     OTHER->un=atoi(strtok(NULL,";"));
     OTHER->deux=atoi(strtok(NULL,";"));
