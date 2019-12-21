@@ -2,23 +2,24 @@
 
 int lancer(FM *J1)
 {
-	int nb_alea[1];
+	int nb_alea;
 	static int first;
+	int n=0;
 	if (first == 0)
 	{
 		first = 1;
 		srand(time(NULL));
 	}
-	nb_alea[0] = 0;
-	nb_alea[0] = (rand() % 6) + 1;
-	sprintf(&J1->score[0], "%d", nb_alea[0]);
-	//printf("%s a fait : %s \n", J1->nom, &J1->score[0]);// aff resultat lancé
-	// enregistrer(J1);
-	return nb_alea[0];
+	nb_alea = 0;
+	nb_alea = (rand() % 6) + 1;
+	J1->score = (char*) malloc(sizeof(int)+1);
+	n=snprintf(J1->score, sizeof(int),"%d", nb_alea);
+	J1->score[n]='\0';
+
+	return nb_alea;
 }
-//static int r[10];
-//srand((unsigned)time(NULL)); initialise
-//r[i]=rand; génére nb aleatoire
+
+
 
 int affichage_fiche(FM *Joueur)
 { // retourne Total du Joueur
@@ -86,7 +87,6 @@ int chance(int de[])
 
 int full(int de[])
 {
-
 	if (de[1] == de[2] && de[2] == de[3])
 	{
 		if (de[4] == de[5])
@@ -209,8 +209,7 @@ int remplissage(FM *Joueur, int Case, int de[])
 	{
 		Joueur->un = uno(Case, de);
 		//printf("vous avez mis %d dans la case 1 !\n",Joueur->un);
-	}
-	if (Case == 2)
+	}else if (Case == 2)
 	{
 		Joueur->deux = 2 * uno(Case, de);
 	}

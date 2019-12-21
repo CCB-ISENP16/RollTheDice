@@ -12,8 +12,8 @@
 
 
 typedef struct FeuilleMatch {
-	char nom[50];
-	char score[3];
+	char *nom;
+	char *score;
 	int un;
 	int deux;
 	int trois;
