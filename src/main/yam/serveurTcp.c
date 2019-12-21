@@ -97,6 +97,7 @@ int main()
                     if (recv(client_sock[i], *buff[i], MAXDATASIZE, 0) > 0)
                     {
                         printf("bonne réception des donnés");
+                        printf("%s",*buff[i]);
                     }
                 }
                 for (int i = 0; i < nb_player; i++)
@@ -133,69 +134,4 @@ int main()
     }
 
     return 0;
-}
-
-int serialsendtoserv(FM *OTHER, int sockfd)
-{
-    /*
-    char nom[50];   char score[3];	int un; int deux;
-	int trois;  int quattre; 	int cinq;   int six;	int yam;
-	int carre;	int brelan; int chance;	int full;
-    */
-    char *buff;
-    int size = 0;
-
-    size += snprintf(buff + size, sizeof(OTHER->nom), "%s;", OTHER->nom);
-    size += snprintf(buff + size, sizeof(OTHER->score), "%s;", OTHER->score);
-    size += snprintf(buff + size, sizeof(OTHER->un), "%d;", OTHER->un);
-    size += snprintf(buff + size, sizeof(OTHER->deux), "%d;", OTHER->deux);
-    size += snprintf(buff + size, sizeof(OTHER->trois), "%d;", OTHER->trois);
-    size += snprintf(buff + size, sizeof(OTHER->quattre), "%d;", OTHER->quattre);
-    size += snprintf(buff + size, sizeof(OTHER->cinq), "%d;", OTHER->cinq);
-    size += snprintf(buff + size, sizeof(OTHER->six), "%d;", OTHER->six);
-    size += snprintf(buff + size, sizeof(OTHER->yam), "%d;", OTHER->yam);
-    size += snprintf(buff + size, sizeof(OTHER->carre), "%d;", OTHER->carre);
-    size += snprintf(buff + size, sizeof(OTHER->brelan), "%d;", OTHER->brelan);
-    size += snprintf(buff + size, sizeof(OTHER->chance), "%d;", OTHER->chance);
-    size += snprintf(buff + size, sizeof(OTHER->full), "%d;", OTHER->full);
-    printf("%s", buff);
-    fflush(stdout);
-
-    if (send(sockfd, buff,MAXDATASIZE, 0) > 0)
-    {
-        printf("tout roule\n");
-    }
-    free(buff);
-
-    return size;
-}
-
-int serialrecfromserv(FM *OTHER, int sockfd)
-{
-    char *buff = (char *)malloc(MAXDATASIZE);
-    printf("debut réception\n");
-    fflush(stdout);
-    if (recv(sockfd, buff, MAXDATASIZE * 3, 0) > 0)
-    {
-        printf("%s\n", buff);
-        printf("j'ai recu\n");
-        fflush(stdout);
-    }
-    OTHER->nom[0] = strtok(buff, ";");
-    printf("%s", OTHER->nom);
-    OTHER->score = strtok(NULL, ";");
-    printf("%s", OTHER->score);
-    OTHER->un = atoi(strtok(NULL, ";"));
-    OTHER->deux = atoi(strtok(NULL, ";"));
-    OTHER->trois = atoi(strtok(NULL, ";"));
-    OTHER->quattre = atoi(strtok(NULL, ";"));
-    OTHER->cinq = atoi(strtok(NULL, ";"));
-    OTHER->six = atoi(strtok(NULL, ";"));
-    OTHER->yam = atoi(strtok(NULL, ";"));
-    OTHER->carre = atoi(strtok(NULL, ";"));
-    OTHER->brelan = atoi(strtok(NULL, ";"));
-    OTHER->chance = atoi(strtok(NULL, ";"));
-    OTHER->full = atoi(strtok(NULL, ";"));
-    free(buff);
-    return 1;
 }
