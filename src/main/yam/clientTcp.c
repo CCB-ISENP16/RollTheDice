@@ -39,13 +39,13 @@ int main(int argc, char *argv[])
     struct sockaddr_in their_addr; /* connector's address information */
     FM J1;
 
-    if (argc != 2)
-    {
-        fprintf(stderr, "usage: client hostname\n");
-        exit(1);
-    }
+    // if (argc != 2)
+    // {
+    //     fprintf(stderr, "usage: client hostname\n");
+    //     exit(1);
+    // }
 
-    if ((he = gethostbyname(argv[1])) == NULL)
+    if ((he = gethostbyname("10.3.141.1")) == NULL)
     { /* get the host info */
         herror("gethostbyname");
         exit(1);
