@@ -72,8 +72,7 @@ int main(int argc, char *argv[])
     bzero(J1.nom, sizeof(J1.nom));
 
     printf("Nom du joueur : ");
-    n=scanf("%s", J1.nom);
-    J1.nom[n]='\0';
+    scanf("%s", J1.nom);
     clear_fiche(&J1);
 
     for (int i = 0; i < 11; i++)
@@ -152,7 +151,7 @@ int serialrecfromserv(FM *OTHER, int sockfd)
         printf("j'ai recu\n");
         fflush(stdout);
     }
-    OTHER->nom= strtok(buff,";");
+    OTHER->nom[0]= strtok(buff,";");
     OTHER->score = strtok(NULL,";");
     OTHER->un=atoi(strtok(NULL,";"));
     OTHER->deux=atoi(strtok(NULL,";"));

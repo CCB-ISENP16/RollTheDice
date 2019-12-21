@@ -26,7 +26,7 @@ int main()
     struct sockaddr_in server;
     struct sockaddr_in client;
     char client_message[2000];
-    char buff[500];
+    char buff[5][500];
     FM OTHER[5];
     int opt = TRUE;
 
@@ -94,10 +94,10 @@ int main()
 
                 for (int i = 0; i < nb_player; i++)
                 {
-                   if (recv(client_sock[i], buff, MAXDATASIZE , 0) > 0)
-                   {
-                       printf("bonne réception des donnés");
-                   }
+                    if (recv(client_sock[i], *buff[i], MAXDATASIZE, 0) > 0)
+                    {
+                        printf("bonne réception des donnés");
+                    }
                 }
                 for (int i = 0; i < nb_player; i++)
                 {
@@ -106,7 +106,10 @@ int main()
                     {
                         if (i != j)
                         {
-                            serialsendtoserv(&OTHER[i], client_sock[i]);
+                            if (send(client_sock[i], *buff[j],MAXDATASIZE, 0) > 0)
+                            {
+                                printf("tout roule\n");
+                            }
                         }
                     }
                 }
@@ -158,7 +161,7 @@ int serialsendtoserv(FM *OTHER, int sockfd)
     printf("%s", buff);
     fflush(stdout);
 
-    if (send(sockfd, buff, sizeof(buff), 0) > 0)
+    if (send(sockfd, buff,MAXDATASIZE, 0) > 0)
     {
         printf("tout roule\n");
     }
@@ -178,10 +181,10 @@ int serialrecfromserv(FM *OTHER, int sockfd)
         printf("j'ai recu\n");
         fflush(stdout);
     }
-    OTHER->nom = strtok(buff, ";");
-    printf("%s",OTHER->nom);
+    OTHER->nom[0] = strtok(buff, ";");
+    printf("%s", OTHER->nom);
     OTHER->score = strtok(NULL, ";");
-    printf("%s",OTHER->score);
+    printf("%s", OTHER->score);
     OTHER->un = atoi(strtok(NULL, ";"));
     OTHER->deux = atoi(strtok(NULL, ";"));
     OTHER->trois = atoi(strtok(NULL, ";"));
