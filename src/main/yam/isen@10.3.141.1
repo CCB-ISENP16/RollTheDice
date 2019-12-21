@@ -28,15 +28,15 @@ int main()
     char client_message[2000];
     char buff[500];
     char *tab[5];
-    int desc;
     FM OTHER[5];
     int opt = TRUE;
 
-    int r = 0;
+    int r=0;
 
-    for (int i = 0; i < 5; i++)
+
+    for(int i =0;i<5;i++)
     {
-        tab[i] = (char *)malloc(MAXDATASIZE);
+        tab[i]=(char*) malloc(MAXDATASIZE);
     }
 
     //Create socket
@@ -103,41 +103,26 @@ int main()
 
                 for (int i = 0; i < nb_player; i++)
                 {
-                    if (recv(client_sock[i], tab[i], MAXDATASIZE, 0) > 0)
+                    if (r = recv(client_sock[i], tab[i], MAXDATASIZE, 0) > 0)
                     {
+                        printf("r : %c",r);
+
+                        tab[i][r] = '\0';
+
                         printf("bonne réception des donnés\n");
-                        printf("%s\n", tab[i]);
-
-                        desc = open("stat.txt", O_WRONLY | O_CREAT, 0666);
-                        lseek(desc, 0, SEEK_END);
-
-                        r = write(desc, tab[i], 50);
-                        if (r == -1)
-                        {
-                            perror("Error when writting");
-                        }
-
-                        r = write(desc, "\n", sizeof("\n"));
-                        
-                        if (r == -1)
-                        {
-                            perror("Error when writting");
-                        }
-
-                        close(desc);
+                        printf("%s\n",tab[i]);
                     }
                 }
                 for (int i = 0; i < nb_player; i++)
                 {
                     printf("envoie des données aux autres joueurs\n");
-                    for (int j = nb_player - 1; j >= 0; j--)
+                    for (int j = nb_player-1; j >= 0; j--)
                     {
                         if (i != j)
                         {
-                            printf("envoie des donnees : %s\n", tab[j]);
+                            printf("envoie des donnees : %s\n",tab[j]);
                             fflush(stdout);
-
-                            if (send(client_sock[i], tab[j], MAXDATASIZE, 0) > 0)
+                            if (send(client_sock[i], tab[j],MAXDATASIZE, 0) > 0)
                             {
                                 printf("tout roule envoie des données\n");
                             }
