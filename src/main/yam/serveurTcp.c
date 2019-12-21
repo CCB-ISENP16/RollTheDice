@@ -1,9 +1,5 @@
-// AdvanSolar_Console.cpp�: d�finit le point d'entr�e pour l'application console.
-//
-
 #include <string.h>
 #include <stdio.h>
-
 #include <stdlib.h>
 #include <stddef.h>
 #include <sys/socket.h>
@@ -16,8 +12,6 @@
 #define TRUE 1
 #include "jeu.h"
 
-int serialrecfromserv(FM *OTHER, int sockfd);
-int serialsendtoserv(FM *OTHER, int sockfd);
 
 int main()
 {
@@ -39,7 +33,7 @@ int main()
         tab[i] = (char *)malloc(MAXDATASIZE);
     }
 
-    //Create socket
+    //Create socket serveur
     socket_desc = socket(AF_INET, SOCK_STREAM, 0);
 
     if (socket_desc == -1)
@@ -83,9 +77,9 @@ int main()
             {
                 puts("New player\n");
                 nb_player++;
-                printf("%d\n", nb_player);
+                //printf("%d\n", nb_player);
             }
-            if (client_sock < 0)
+            if (client_sock[nb_player] < 0)
             {
                 perror("accept failed");
                 return 1;
@@ -105,8 +99,8 @@ int main()
                 {
                     if (recv(client_sock[i], tab[i], MAXDATASIZE, 0) > 0)
                     {
-                        printf("bonne réception des donnés\n");
-                        printf("%s\n", tab[i]);
+                        // printf("bonne réception des donnés\n");
+                        // printf("%s\n", tab[i]);
 
                         desc = open("stat.txt", O_WRONLY | O_CREAT, 0666);
                         lseek(desc, 0, SEEK_END);
@@ -139,7 +133,7 @@ int main()
 
                             if (send(client_sock[i], tab[j], MAXDATASIZE, 0) > 0)
                             {
-                                printf("tout roule envoie des données\n");
+                                //printf("tout roule envoie des données\n");
                             }
                         }
                     }
@@ -147,6 +141,7 @@ int main()
 
                 for (int i = 0; i < nb_player; i++)
                 {
+                    //clean the fiche 
                     clear_fiche(&OTHER[i]);
                 }
             }
@@ -154,6 +149,7 @@ int main()
 
         if (nb_tours == 11)
         {
+            // after the partie close of the socket 
             for (int i = 0; i < nb_player; i++)
             {
                 close(client_sock[i]);

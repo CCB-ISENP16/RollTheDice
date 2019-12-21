@@ -24,9 +24,9 @@
 #define PORT 1100 /* the port client will be connecting to */
 
 #define MAXDATASIZE 100 /* max number of bytes we can get at once */
-void rectoserv(FM *OTHER, int sockfd);
+// void rectoserv(FM *OTHER, int sockfd);
 void affichageAutreJoueur(int sockfd);
-void sendtoserv(FM *OTHER, int sockfd);
+// void sendtoserv(FM *OTHER, int sockfd);
 int serialsendtoserv(FM *OTHER, int sockfd);
 int serialrecfromserv(FM *OTHER, int sockfd);
 
@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
     {
         char buffer;
         getchar();
-        printf("\ntaper sur n'importe quel caractère pour jouer au tour %d \n", i+1);
+        printf("\ntaper sur entrer pour jouer le tour %d \n", i+1);
         scanf("%c", &buffer);
         printf("début du tour de jeu\n");
         fflush(stdout);
@@ -96,6 +96,9 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+
+//@param sockfd is the descriptor of the socket 
+
 void affichageAutreJoueur(int sockfd)
 {
     FM *OTHER;
@@ -109,6 +112,9 @@ void affichageAutreJoueur(int sockfd)
     }
 }
 
+//@param OTHER is the match sheet to send after be serialize
+//@param sockfd is the descriptor if the client socket
+//@return the size of the trame
 
 int serialsendtoserv(FM *OTHER, int sockfd)
 {
@@ -117,7 +123,7 @@ int serialsendtoserv(FM *OTHER, int sockfd)
 	int trois;  int quattre; 	int cinq;   int six;	int yam;
 	int carre;	int brelan; int chance;	int full;
     */
-    char * buff= (char *)malloc(MAXDATASIZE);
+    char * buff= (char *)malloc(MAXDATASIZE); // trame que l'on veut envoyer
     int size=0;
     printf("envoie des donnés\n");
     fflush(stdout);
@@ -136,10 +142,10 @@ int serialsendtoserv(FM *OTHER, int sockfd)
     size+=snprintf(buff+size,sizeof(OTHER->chance)+1,"%d;",OTHER->chance);
     size+=snprintf(buff+size,sizeof(OTHER->full)+1,"%d;",OTHER->full);
 
-    printf("%s\n",buff);
-    fflush(stdout);
+    // printf("%s\n",buff);
+    // fflush(stdout);
     
-    if(send(sockfd,buff,MAXDATASIZE,0) > 0)
+    if(send(sockfd,buff,MAXDATASIZE,0) > 0) // tester avec size
     {
         printf("tout roule pour l'envoie\n");
         fflush(stdout);
@@ -148,18 +154,22 @@ int serialsendtoserv(FM *OTHER, int sockfd)
     return size;
 }
 
+//@param OTHER is the match sheet to send after be serialize
+//@param sockfd is the descriptor if the client socket
+//@return 1
+
 int serialrecfromserv(FM *OTHER, int sockfd)
 {
    char * buff= (char *)malloc(MAXDATASIZE);
 
     if(recv(sockfd,buff,MAXDATASIZE,0)>0)
     {
-        printf("%s",buff);
-        fflush(stdout);
+        // printf("%s",buff);
+        // fflush(stdout);
     }
     OTHER->nom= strtok(buff,";");
-    printf("%s",OTHER->nom);
-    fflush(stdout);
+    // printf("%s",OTHER->nom);
+    // fflush(stdout);
     OTHER->score = strtok(NULL,";");
     OTHER->un=atoi(strtok(NULL,";"));
     OTHER->deux=atoi(strtok(NULL,";"));

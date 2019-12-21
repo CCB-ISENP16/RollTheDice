@@ -1,5 +1,9 @@
 #include "jeu.h"
 
+//@param J1 is the match sheet, where the score of the dice 
+//@return the value of the dice  
+
+
 int lancer(FM *J1)
 {
 	int nb_alea;
@@ -19,7 +23,8 @@ int lancer(FM *J1)
 	return nb_alea;
 }
 
-
+//@param Joueur is the match sheet to print 
+//@return the total score of the player
 
 int affichage_fiche(FM *Joueur)
 { // retourne Total du Joueur
@@ -49,6 +54,8 @@ int affichage_fiche(FM *Joueur)
 	return Total + Joueur->full + Joueur->chance + Joueur->brelan + Joueur->carre + Joueur->yam;
 }
 
+//@param Joueur is yhe match sheet to clean (put all the value to -1)
+
 void clear_fiche(FM *Joueur)
 {
 	Joueur->un = -1;
@@ -63,6 +70,10 @@ void clear_fiche(FM *Joueur)
 	Joueur->carre = -1;
 	Joueur->yam = -1;
 }
+
+//@param Case is a value beetween 1 to 6 
+//@param de is a table of the dice 1 2 etc 
+//@return the number of same dice value
 
 int uno(int Case, int de[])
 {
@@ -80,11 +91,15 @@ int uno(int Case, int de[])
 	return i;
 }
 
+//@param de is the table of dice 
+//@return the sum of the 5 dice 
 int chance(int de[])
 {
 	return de[1] + de[2] + de[3] + de[4] + de[5];
 }
 
+//@param de is the table of dice 
+//@return the sum 3 same dice and 2 other same dice  
 int full(int de[])
 {
 	if (de[1] == de[2] && de[2] == de[3])
@@ -140,7 +155,8 @@ int full(int de[])
 	else
 		return 0;
 }
-
+//@param de is the table of dice 
+//@return the sum 3 same 
 int brelan(int de[])
 {
 	if (de[1] == de[2] && de[2] == de[3])
@@ -166,7 +182,8 @@ int brelan(int de[])
 	else
 		return 0;
 }
-
+//@param de is the table of dice 
+//@return 50 pts if the 5 dice is the same
 int yam(int de[])
 {
 	if (de[1] == de[2] && de[2] == de[3] && de[3] == de[4] && de[4] == de[5])
@@ -175,6 +192,8 @@ int yam(int de[])
 		return 0;
 }
 
+//@param de is the table of dice 
+//@return 40 pts if we have 4 same dice 
 int carre(int de[])
 {
 
@@ -202,7 +221,10 @@ int carre(int de[])
 	else
 		return 0;
 }
-
+//@param Joueur is the match sheet to be fill
+//@param Case is the case to fill 
+//param de is the table of dice 
+//return 1 for success other 0
 int remplissage(FM *Joueur, int Case, int de[])
 {
 	if (Case == 1)
@@ -255,6 +277,8 @@ int remplissage(FM *Joueur, int Case, int de[])
 
 	return 1;
 }
+
+//@param J1 is match sheet for plays
 void tour_de_jeu(FM *J1)
 {
 	int de[6];
